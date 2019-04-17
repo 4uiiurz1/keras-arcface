@@ -13,7 +13,7 @@ label = Input(shape=(10,))
 
 x = Conv2D(32, kernel_size=(3, 3), activation='relu')(input)
 x = MaxPooling2D(pool_size=(2, 2))(x)
-x = Conv2D(64, kernel_size=(3, 3), activation='relu')(input)
+x = Conv2D(64, kernel_size=(3, 3), activation='relu')(x)
 x = MaxPooling2D(pool_size=(2, 2))(x)
 
 x = BatchNormalization()(x)
@@ -21,7 +21,7 @@ x = Dropout(0.5)(x)
 x = Flatten()(x)
 x = Dense(512, kernel_initializer='he_normal')(x)
 x = BatchNormalization()(x)
-output = ArcFace(num_classes=10)([x, y])
+output = ArcFace(num_classes=10)([x, label])
 
 model = Model([input, label], output)
 
