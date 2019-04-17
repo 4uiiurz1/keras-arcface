@@ -63,7 +63,12 @@ python train.py --arch vgg8_sphereface
 
 ## Results
 ### MNIST
-![softmax](figures/mnist_vgg8_3d.png)
+<!-- ![softmax](figures/mnist_vgg8_3d.png)
 ![arcface](figures/mnist_vgg8_arcface_3d.png)
 ![cosface](figures/mnist_vgg8_cosface_3d.png)
-![sphereface](figures/mnist_vgg8_sphereface_3d.png)
+![sphereface](figures/mnist_vgg8_sphereface_3d.png) -->
+<img src="figures/mnist_vgg8_3d.png" width="500">
+<img src="figures/mnist_vgg8_arcface_3d.png" width="500">
+
+<img src="figures/mnist_vgg8_cosface_3d.png" width="500">
+<img src="figures/mnist_vgg8_sphereface_3d.png" width="500">
