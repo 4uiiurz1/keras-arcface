@@ -29,7 +29,8 @@ model.compile(loss='categorical_crossentropy',
               optimizer=Adam(),
               metrics=['accuracy'])
 
-model.fit(x_train, y_train,
+model.fit([x_train, y_train],
+          y_train,
           batch_size=batch_size,
           epochs=epochs,
           verbose=1,
@@ -41,7 +42,7 @@ model.fit(x_train, y_train,
 ### Test
 ```python
 model.load_weights('model.hdf5')
-model = Model(inputs=model.input, outputs=model.layers[-3].output)
+model = Model(inputs=model.input[0], outputs=model.layers[-3].output)
 embedded_features = model.predict(x_test, verbose=1)
 embedded_features /= np.linalg.norm(embedded_features, axis=1, keepdims=True)
 ```
