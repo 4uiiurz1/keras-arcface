@@ -21,7 +21,7 @@ x = Dropout(0.5)(x)
 x = Flatten()(x)
 x = Dense(512, kernel_initializer='he_normal')(x)
 x = BatchNormalization()(x)
-output = ArcFace(num_classes=10)([x, label])
+output = ArcFace(n_classes=10)([x, label])
 
 model = Model([input, label], output)
 
