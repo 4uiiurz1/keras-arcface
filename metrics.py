@@ -1,3 +1,4 @@
+import numpy as np
 from keras import backend as K
 from keras.layers import Layer
 from keras import regularizers
@@ -16,10 +17,10 @@ class ArcFace(Layer):
     def build(self, input_shape):
         super(ArcFace, self).build(input_shape[0])
         self.W = self.add_weight(name='W',
-                                shape=(input_shape[0][-1], self.n_classes),
-                                initializer='glorot_uniform',
-                                trainable=True,
-                                regularizer=self.regularizer)
+                                 shape=(input_shape[0][-1], self.n_classes),
+                                 initializer='glorot_uniform',
+                                 trainable=True,
+                                 regularizer=self.regularizer)
 
     def call(self, inputs):
         x, y = inputs
@@ -33,7 +34,8 @@ class ArcFace(Layer):
         # add margin
         # clip logits to prevent zero division when backward
         theta = tf.acos(K.clip(logits, -1.0 + K.epsilon(), 1.0 - K.epsilon()))
-        target_logits = tf.cos(theta + self.m)
+        # target_logits = tf.cos(theta + self.m)
+        target_logits = tf.cos(K.clip(theta + self.m, 0, np.pi))
         # sin = tf.sqrt(1 - logits**2)
         # cos_m = tf.cos(logits)
         # sin_m = tf.sin(logits)
@@ -70,10 +72,10 @@ class SphereFace(Layer):
     def build(self, input_shape):
         super(SphereFace, self).build(input_shape[0])
         self.W = self.add_weight(name='W',
-                                shape=(input_shape[0][-1], self.n_classes),
-                                initializer='glorot_uniform',
-                                trainable=True,
-                                regularizer=self.regularizer)
+                                 shape=(input_shape[0][-1], self.n_classes),
+                                 initializer='glorot_uniform',
+                                 trainable=True,
+                                 regularizer=self.regularizer)
 
     def call(self, inputs):
         x, y = inputs
@@ -87,7 +89,8 @@ class SphereFace(Layer):
         # add margin
         # clip logits to prevent zero division when backward
         theta = tf.acos(K.clip(logits, -1.0 + K.epsilon(), 1.0 - K.epsilon()))
-        target_logits = tf.cos(self.m * theta)
+        # target_logits = tf.cos(self.m * theta)
+        target_logits = tf.cos(K.clip(theta + self.m, 0, np.pi))
         #
         logits = logits * (1 - y) + target_logits * y
         # feature re-scale
@@ -120,10 +123,10 @@ class CosFace(Layer):
     def build(self, input_shape):
         super(CosFace, self).build(input_shape[0])
         self.W = self.add_weight(name='W',
-                                shape=(input_shape[0][-1], self.n_classes),
-                                initializer='glorot_uniform',
-                                trainable=True,
-                                regularizer=self.regularizer)
+                                 shape=(input_shape[0][-1], self.n_classes),
+                                 initializer='glorot_uniform',
+                                 trainable=True,
+                                 regularizer=self.regularizer)
 
     def call(self, inputs):
         x, y = inputs
