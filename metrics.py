@@ -49,6 +49,15 @@ class ArcFace(Layer):
     def compute_output_shape(self, input_shape):
         return (None, self.n_classes)
 
+    def get_config(self):
+        config = super().get_config()
+        config.update({
+            'n_classes': self.n_classes,
+            's': self.s,
+            'm': self.m,
+        })
+        return config
+
 
 class SphereFace(Layer):
     def __init__(self, n_classes=10, s=30.0, m=1.35, regularizer=None, **kwargs):
@@ -90,6 +99,15 @@ class SphereFace(Layer):
     def compute_output_shape(self, input_shape):
         return (None, self.n_classes)
 
+    def get_config(self):
+        config = super().get_config()
+        config.update({
+            'n_classes': self.n_classes,
+            's': self.s,
+            'm': self.m,
+        })
+        return config
+
 
 class CosFace(Layer):
     def __init__(self, n_classes=10, s=30.0, m=0.35, regularizer=None, **kwargs):
@@ -128,3 +146,12 @@ class CosFace(Layer):
 
     def compute_output_shape(self, input_shape):
         return (None, self.n_classes)
+
+    def get_config(self):
+        config = super().get_config()
+        config.update({
+            'n_classes': self.n_classes,
+            's': self.s,
+            'm': self.m,
+        })
+        return config
